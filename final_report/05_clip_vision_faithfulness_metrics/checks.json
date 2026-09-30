@@ -1,0 +1,269 @@
+{
+  "gate_passed": true,
+  "checks": {
+    "source_config_matches_stored_run": true,
+    "aopc_fractions_equal_source_faithfulness_fractions": true,
+    "ten_images_with_stored_shap": true,
+    "all_images_npz_equals_csv": true,
+    "all_images_ranking_equals_stored_abs_rank": true,
+    "all_images_ranking_equals_stored_faithfulness_selection": true,
+    "pointing_boxes_all_rows_reviewed": true,
+    "pointing_boxes_every_image_reviewed": true,
+    "pointing_boxes_one_target_per_image": true,
+    "model_in_eval_mode": true,
+    "model_parameters_unchanged": true,
+    "original_vs_stored_within_1e-05": true,
+    "fully_blurred_vs_stored_within_1e-05": true,
+    "deletion_start_vs_original_within_1e-05": true,
+    "deletion_end_vs_fully_blurred_within_1e-05": true,
+    "insertion_start_vs_fully_blurred_within_1e-05": true,
+    "insertion_end_vs_original_within_1e-05": true,
+    "deletion_vs_stored_comprehensiveness_within_1e-05": true,
+    "insertion_vs_stored_sufficiency_within_1e-05": true,
+    "source_experiment_unchanged": true,
+    "image_folder_unchanged": true
+  },
+  "summary": {
+    "images": 10,
+    "deletion_auc": 0.7109278406415667,
+    "insertion_auc": 0.8491702962590721,
+    "aopc": 0.19945872575044632,
+    "pointing_game": 0.9,
+    "pointing_game_hits": 9,
+    "pointing_game_images": 10,
+    "pointing_game_no_tolerance": 0.7,
+    "pointing_game_tolerance_px": 15.0,
+    "fully_blurred_mean": 0.4520596116781235,
+    "fully_blurred_min": 0.2962304949760437,
+    "fully_blurred_max": 0.5640976428985596
+  },
+  "max_abs_errors": {
+    "original_vs_stored": 0.0,
+    "fully_blurred_vs_stored": 0.0,
+    "deletion_start_vs_original": 1.1920928955078125e-07,
+    "deletion_end_vs_fully_blurred": 1.7881393432617188e-07,
+    "insertion_start_vs_fully_blurred": 3.5762786865234375e-07,
+    "insertion_end_vs_original": 1.7881393432617188e-07,
+    "deletion_vs_stored_comprehensiveness": 3.5762786865234375e-07,
+    "insertion_vs_stored_sufficiency": 1.1920928955078125e-07
+  },
+  "per_image_errors": {
+    "I1": {
+      "original_vs_stored": 0.0,
+      "fully_blurred_vs_stored": 0.0,
+      "deletion_start_vs_original": 0.0,
+      "deletion_end_vs_fully_blurred": 2.9802322387695312e-08,
+      "insertion_start_vs_fully_blurred": 5.960464477539063e-08,
+      "insertion_end_vs_original": 0.0,
+      "deletion_vs_stored_comprehensiveness": 1.7881393432617188e-07,
+      "insertion_vs_stored_sufficiency": 0.0
+    },
+    "I2": {
+      "original_vs_stored": 0.0,
+      "fully_blurred_vs_stored": 0.0,
+      "deletion_start_vs_original": 1.1920928955078125e-07,
+      "deletion_end_vs_fully_blurred": 5.960464477539063e-08,
+      "insertion_start_vs_fully_blurred": 0.0,
+      "insertion_end_vs_original": 1.1920928955078125e-07,
+      "deletion_vs_stored_comprehensiveness": 0.0,
+      "insertion_vs_stored_sufficiency": 1.1920928955078125e-07
+    },
+    "I3": {
+      "original_vs_stored": 0.0,
+      "fully_blurred_vs_stored": 0.0,
+      "deletion_start_vs_original": 5.960464477539063e-08,
+      "deletion_end_vs_fully_blurred": 1.4901161193847656e-07,
+      "insertion_start_vs_fully_blurred": 8.940696716308594e-08,
+      "insertion_end_vs_original": 0.0,
+      "deletion_vs_stored_comprehensiveness": 5.960464477539063e-08,
+      "insertion_vs_stored_sufficiency": 5.960464477539063e-08
+    },
+    "I4": {
+      "original_vs_stored": 0.0,
+      "fully_blurred_vs_stored": 0.0,
+      "deletion_start_vs_original": 5.960464477539063e-08,
+      "deletion_end_vs_fully_blurred": 1.7881393432617188e-07,
+      "insertion_start_vs_fully_blurred": 1.1920928955078125e-07,
+      "insertion_end_vs_original": 0.0,
+      "deletion_vs_stored_comprehensiveness": 1.1920928955078125e-07,
+      "insertion_vs_stored_sufficiency": 1.1920928955078125e-07
+    },
+    "I5": {
+      "original_vs_stored": 0.0,
+      "fully_blurred_vs_stored": 0.0,
+      "deletion_start_vs_original": 5.960464477539063e-08,
+      "deletion_end_vs_fully_blurred": 8.940696716308594e-08,
+      "insertion_start_vs_fully_blurred": 2.9802322387695312e-08,
+      "insertion_end_vs_original": 1.7881393432617188e-07,
+      "deletion_vs_stored_comprehensiveness": 5.960464477539063e-08,
+      "insertion_vs_stored_sufficiency": 0.0
+    },
+    "I6": {
+      "original_vs_stored": 0.0,
+      "fully_blurred_vs_stored": 0.0,
+      "deletion_start_vs_original": 1.1920928955078125e-07,
+      "deletion_end_vs_fully_blurred": 2.9802322387695312e-08,
+      "insertion_start_vs_fully_blurred": 8.940696716308594e-08,
+      "insertion_end_vs_original": 1.1920928955078125e-07,
+      "deletion_vs_stored_comprehensiveness": 1.1920928955078125e-07,
+      "insertion_vs_stored_sufficiency": 1.1920928955078125e-07
+    },
+    "I7": {
+      "original_vs_stored": 0.0,
+      "fully_blurred_vs_stored": 0.0,
+      "deletion_start_vs_original": 0.0,
+      "deletion_end_vs_fully_blurred": 8.940696716308594e-08,
+      "insertion_start_vs_fully_blurred": 1.7881393432617188e-07,
+      "insertion_end_vs_original": 5.960464477539063e-08,
+      "deletion_vs_stored_comprehensiveness": 5.960464477539063e-08,
+      "insertion_vs_stored_sufficiency": 0.0
+    },
+    "I8": {
+      "original_vs_stored": 0.0,
+      "fully_blurred_vs_stored": 0.0,
+      "deletion_start_vs_original": 0.0,
+      "deletion_end_vs_fully_blurred": 1.1920928955078125e-07,
+      "insertion_start_vs_fully_blurred": 0.0,
+      "insertion_end_vs_original": 1.1920928955078125e-07,
+      "deletion_vs_stored_comprehensiveness": 3.5762786865234375e-07,
+      "insertion_vs_stored_sufficiency": 5.960464477539063e-08
+    },
+    "I9": {
+      "original_vs_stored": 0.0,
+      "fully_blurred_vs_stored": 0.0,
+      "deletion_start_vs_original": 1.1920928955078125e-07,
+      "deletion_end_vs_fully_blurred": 1.7881393432617188e-07,
+      "insertion_start_vs_fully_blurred": 3.5762786865234375e-07,
+      "insertion_end_vs_original": 0.0,
+      "deletion_vs_stored_comprehensiveness": 5.960464477539063e-08,
+      "insertion_vs_stored_sufficiency": 0.0
+    },
+    "I10": {
+      "original_vs_stored": 0.0,
+      "fully_blurred_vs_stored": 0.0,
+      "deletion_start_vs_original": 1.1920928955078125e-07,
+      "deletion_end_vs_fully_blurred": 0.0,
+      "insertion_start_vs_fully_blurred": 2.9802322387695312e-08,
+      "insertion_end_vs_original": 1.1920928955078125e-07,
+      "deletion_vs_stored_comprehensiveness": 1.1920928955078125e-07,
+      "insertion_vs_stored_sufficiency": 1.1920928955078125e-07
+    }
+  },
+  "per_image_stored_checks": {
+    "I1": {
+      "npz_equals_csv": true,
+      "ranking_equals_stored_abs_rank": true,
+      "ranking_equals_stored_faithfulness_selection": true,
+      "all_patch_shap_nonnegative": true
+    },
+    "I2": {
+      "npz_equals_csv": true,
+      "ranking_equals_stored_abs_rank": true,
+      "ranking_equals_stored_faithfulness_selection": true,
+      "all_patch_shap_nonnegative": true
+    },
+    "I3": {
+      "npz_equals_csv": true,
+      "ranking_equals_stored_abs_rank": true,
+      "ranking_equals_stored_faithfulness_selection": true,
+      "all_patch_shap_nonnegative": true
+    },
+    "I4": {
+      "npz_equals_csv": true,
+      "ranking_equals_stored_abs_rank": true,
+      "ranking_equals_stored_faithfulness_selection": true,
+      "all_patch_shap_nonnegative": true
+    },
+    "I5": {
+      "npz_equals_csv": true,
+      "ranking_equals_stored_abs_rank": true,
+      "ranking_equals_stored_faithfulness_selection": true,
+      "all_patch_shap_nonnegative": true
+    },
+    "I6": {
+      "npz_equals_csv": true,
+      "ranking_equals_stored_abs_rank": true,
+      "ranking_equals_stored_faithfulness_selection": true,
+      "all_patch_shap_nonnegative": true
+    },
+    "I7": {
+      "npz_equals_csv": true,
+      "ranking_equals_stored_abs_rank": true,
+      "ranking_equals_stored_faithfulness_selection": true,
+      "all_patch_shap_nonnegative": true
+    },
+    "I8": {
+      "npz_equals_csv": true,
+      "ranking_equals_stored_abs_rank": true,
+      "ranking_equals_stored_faithfulness_selection": true,
+      "all_patch_shap_nonnegative": true
+    },
+    "I9": {
+      "npz_equals_csv": true,
+      "ranking_equals_stored_abs_rank": true,
+      "ranking_equals_stored_faithfulness_selection": true,
+      "all_patch_shap_nonnegative": true
+    },
+    "I10": {
+      "npz_equals_csv": true,
+      "ranking_equals_stored_abs_rank": true,
+      "ranking_equals_stored_faithfulness_selection": true,
+      "all_patch_shap_nonnegative": true
+    }
+  },
+  "pointing_game": {
+    "image_list_columns": [
+      "image_id",
+      "image_path",
+      "width",
+      "height",
+      "sha256"
+    ],
+    "annotation_like_columns": [],
+    "annotation_like_files": [],
+    "folders_searched": [
+      "D:\\ALL_Uni_Documents\\UB\\Courses\\TRDP2\\clip_vision_images",
+      "D:\\ALL_Uni_Documents\\UB\\Courses\\TRDP2\\clip_vision_shap\\data"
+    ],
+    "available": false,
+    "author_boxes": {
+      "boxes_path": "D:\\ALL_Uni_Documents\\UB\\Courses\\TRDP2\\clip_vision_shap_faithfulness_metrics\\annotations\\pointing_game_boxes.csv",
+      "boxes_sha256": "20fbe7c84640d1cbacb8086e199d7b98df84a41dbe457fec69fd8ececd59899c",
+      "box_rows": 11,
+      "statuses": [
+        "approved"
+      ],
+      "approved_images": [
+        "I1",
+        "I2",
+        "I3",
+        "I4",
+        "I5",
+        "I6",
+        "I7",
+        "I8",
+        "I9",
+        "I10"
+      ],
+      "excluded_images": [],
+      "all_rows_reviewed": true,
+      "every_image_reviewed": true,
+      "one_target_per_image": true
+    }
+  },
+  "source_run": "D:\\ALL_Uni_Documents\\UB\\Courses\\TRDP2\\clip_vision_shap\\outputs\\values\\clip_vision_i1_i10",
+  "model_evaluations": 1030,
+  "device": "cuda",
+  "versions": {
+    "python": "3.11.15",
+    "torch": "2.14.0+cu126",
+    "transformers": "5.4.0",
+    "shap": "0.51.0",
+    "numpy": "2.4.6",
+    "scipy": "1.17.1",
+    "matplotlib": "3.10.9",
+    "pillow": "11.3.0"
+  },
+  "runtime_seconds": 9.79516450013034,
+  "completed_at_utc": "2026-09-30T14:19:09+00:00"
+}

@@ -1,0 +1,7 @@
+Metric,BERT,CLIP
+Comprehensiveness (higher = better),0.7715486734440384,0.7049365288385975
+Sufficiency (lower = better),0.22305252326920832,0.3306988276812128
+Deletion AOPC (higher = better),0.890248086194398,-0.36813343674923693
+"Rationale Precision, SST lexical proxy (higher = better)",0.4658035405690477,0.3276506689343699
+"Rationale Recall, SST lexical proxy (higher = better)",0.6777911324786325,0.4885823667073667
+"Rationale F1, SST lexical proxy (higher = better)",0.49347749572897964,0.3496520845943727

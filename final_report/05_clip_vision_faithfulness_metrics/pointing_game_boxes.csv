@@ -1,0 +1,12 @@
+image_id,box_id,target_object,x0,y0,x1,y1,status,note
+I1,1,horse,8,40,248,306,approved,main horse on the left (target class: horse)
+I1,2,horse,407,66,500,152,approved,second horse in the background; mostly outside the CLIP crop
+I2,1,people,25,12,500,178,approved,one group box around the people standing and sitting at the pool edge
+I3,1,person,355,228,390,300,approved,silhouette of the man fishing; the rest of the image is landscape (tree and lake)
+I4,1,kayak with paddler,204,176,300,222,approved,kayak including the paddler and paddle
+I5,1,dogs,90,40,273,228,approved,one box around both puppies (they overlap)
+I6,1,painted puppet-theatre cart,145,62,312,375,approved,painted booth with its wheels; pedestrians and the police car are not the target
+I7,1,people (vendors),112,45,482,285,approved,one group box around the three people at the food stall
+I8,1,person,140,2,420,339,approved,man in the red jacket including cap and legs
+I9,1,people (couple),224,274,254,342,approved,the couple standing by the pond
+I10,1,child,180,0,398,333,approved,child on the rope net including hair and arms

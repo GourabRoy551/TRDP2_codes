@@ -1,0 +1,5 @@
+Metric,CLIP Vision
+Deletion AUC ↓,0.7109278406415667
+Insertion AUC ↑,0.8491702962590721
+AOPC ↑,0.19945872575044632
+Pointing/Localization Accuracy ↑,0.9

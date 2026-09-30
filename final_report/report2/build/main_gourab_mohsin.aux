@@ -1,0 +1,201 @@
+\relax 
+\providecommand\hyper@newdestlabel[2]{}
+\providecommand\HyField@AuxAddToFields[1]{}
+\providecommand\HyField@AuxAddToCoFields[2]{}
+\citation{lundberg2017}
+\citation{radford2021}
+\citation{lundberg2017}
+\@writefile{toc}{\contentsline {section}{\numberline {1}Introduction}{1}{section.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {2}Model and explanation methodology}{1}{section.2}\protected@file@percent }
+\newlabel{sec:method}{{2}{1}{Model and explanation methodology}{section.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.1}SHAP and Partition SHAP}{1}{subsection.2.1}\protected@file@percent }
+\citation{shapdocs}
+\citation{devlin2019}
+\citation{morris2020}
+\citation{socher2013}
+\citation{wang2019}
+\citation{radford2021}
+\citation{dosovitskiy2021}
+\citation{deyoung2020}
+\newlabel{eq:additivity}{{1}{2}{SHAP and Partition SHAP}{equation.1}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.2}BERT sentiment classifier}{2}{subsection.2.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.3}CLIP text encoder as a zero-shot sentiment classifier}{2}{subsection.2.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.4}CLIP vision encoder}{2}{subsection.2.4}\protected@file@percent }
+\citation{deyoung2020}
+\citation{samek2017}
+\citation{deyoung2020}
+\citation{petsiuk2018}
+\citation{zhang2018}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.5}Evaluation of explanations}{3}{subsection.2.5}\protected@file@percent }
+\newlabel{sec:metrics-background}{{2.5}{3}{Evaluation of explanations}{subsection.2.5}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.6}Text measures}{3}{subsection.2.6}\protected@file@percent }
+\newlabel{sec:text-metrics}{{2.6}{3}{Text measures}{subsection.2.6}{}}
+\@writefile{toc}{\contentsline {paragraph}{Decision score.}{3}{section*.4}\protected@file@percent }
+\newlabel{eq:decision}{{2}{3}{Decision score}{equation.2}{}}
+\@writefile{toc}{\contentsline {paragraph}{Ranking and cut-offs.}{3}{section*.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{The measures.}{3}{section*.6}\protected@file@percent }
+\citation{socher2013}
+\citation{zhang2018}
+\@writefile{toc}{\contentsline {paragraph}{Making BERT and CLIP comparable.}{4}{section*.7}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Reference words for rationale F1.}{4}{section*.8}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.7}Image measures}{4}{subsection.2.7}\protected@file@percent }
+\newlabel{sec:vision-metrics}{{2.7}{4}{Image measures}{subsection.2.7}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {3}Implementation workflow}{5}{section.3}\protected@file@percent }
+\newlabel{sec:workflow}{{3}{5}{Implementation workflow}{section.3}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Processing sequence followed by the implementation.}}{5}{figure.caption.9}\protected@file@percent }
+\providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
+\newlabel{fig:workflow}{{1}{5}{Processing sequence followed by the implementation}{figure.caption.9}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {4}Experimental setup}{5}{section.4}\protected@file@percent }
+\newlabel{sec:setup}{{4}{5}{Experimental setup}{section.4}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Data}{5}{subsection.4.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Qualitative sentence set (S1--S10).}{5}{section*.10}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{500 SST-2 sentences.}{6}{section*.11}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Ten images (I1--I10).}{6}{section*.12}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2}Overview of the experiments}{6}{subsection.4.2}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces The four SHAP experiments of this report.}}{6}{table.caption.13}\protected@file@percent }
+\newlabel{tab:experiments}{{1}{6}{The four SHAP experiments of this report}{table.caption.13}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.3}Configuration and reproducibility}{7}{subsection.4.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {5}Results}{7}{section.5}\protected@file@percent }
+\newlabel{sec:results}{{5}{7}{Results}{section.5}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.1}Two-class explanations of BERT on S1--S10}{7}{subsection.5.1}\protected@file@percent }
+\newlabel{sec:bert-qual}{{5.1}{7}{Two-class explanations of BERT on S1--S10}{subsection.5.1}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces Predictions of BERT and CLIP text on S1--S10}}{7}{table.caption.14}\protected@file@percent }
+\newlabel{tab:s-predictions}{{2}{7}{Predictions of BERT and CLIP text on S1--S10}{table.caption.14}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces Strongest margin words per sentence for BERT and CLIP text}}{8}{table.caption.15}\protected@file@percent }
+\newlabel{tab:s-words}{{3}{8}{Strongest margin words per sentence for BERT and CLIP text}{table.caption.15}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.2}Two-class explanations of CLIP text on S1--S10}{8}{subsection.5.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Word-level SHAP bars of BERT and CLIP text for sentence S3}}{9}{figure.caption.16}\protected@file@percent }
+\newlabel{fig:s3-bars}{{2}{9}{Word-level SHAP bars of BERT and CLIP text for sentence S3}{figure.caption.16}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.3}Faithfulness and plausibility on 500 sentences}{9}{subsection.5.3}\protected@file@percent }
+\newlabel{sec:text-results}{{5.3}{9}{Faithfulness and plausibility on 500 sentences}{subsection.5.3}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {4}{\ignorespaces Classification results on the 500 SST-2 sentences (250 NEG, 250 POS).}}{9}{table.caption.17}\protected@file@percent }
+\newlabel{tab:classification}{{4}{9}{Classification results on the 500 SST-2 sentences (250 NEG, 250 POS)}{table.caption.17}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {5}{\ignorespaces Text explanation measures on 500 sentences}}{10}{table.caption.18}\protected@file@percent }
+\newlabel{tab:text-metrics}{{5}{10}{Text explanation measures on 500 sentences}{table.caption.18}{}}
+\@writefile{toc}{\contentsline {paragraph}{Comprehensiveness and sufficiency.}{10}{section*.19}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {6}{\ignorespaces Text measures at each cut-off}}{10}{table.caption.20}\protected@file@percent }
+\newlabel{tab:text-fractions}{{6}{10}{Text measures at each cut-off}{table.caption.20}{}}
+\@writefile{toc}{\contentsline {paragraph}{Deletion AOPC.}{10}{section*.21}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Rationale F1.}{11}{section*.22}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.4}Patch-level explanations of CLIP vision on I1--I10}{11}{subsection.5.4}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Patch-level SHAP values of CLIP vision for I4 and I1}}{11}{figure.caption.23}\protected@file@percent }
+\newlabel{fig:vision-examples}{{3}{11}{Patch-level SHAP values of CLIP vision for I4 and I1}{figure.caption.23}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.5}Faithfulness and pointing game for CLIP vision}{11}{subsection.5.5}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {7}{\ignorespaces Explanation measures for CLIP vision (means over I1--I10).}}{12}{table.caption.24}\protected@file@percent }
+\newlabel{tab:vision-metrics}{{7}{12}{Explanation measures for CLIP vision (means over I1--I10)}{table.caption.24}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {8}{\ignorespaces CLIP vision measures per image}}{12}{table.caption.25}\protected@file@percent }
+\newlabel{tab:vision-images}{{8}{12}{CLIP vision measures per image}{table.caption.25}{}}
+\@writefile{toc}{\contentsline {paragraph}{Deletion and insertion.}{12}{section*.26}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Pointing game.}{12}{section*.28}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {6}Discussion}{12}{section.6}\protected@file@percent }
+\newlabel{sec:discussion}{{6}{12}{Discussion}{section.6}{}}
+\@writefile{toc}{\contentsline {paragraph}{What the results tell us.}{12}{section*.30}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Deletion and insertion curves of CLIP vision}}{13}{figure.caption.27}\protected@file@percent }
+\newlabel{fig:curves}{{4}{13}{Deletion and insertion curves of CLIP vision}{figure.caption.27}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Pointing game for CLIP vision}}{13}{figure.caption.29}\protected@file@percent }
+\newlabel{fig:pointing}{{5}{13}{Pointing game for CLIP vision}{figure.caption.29}{}}
+\@writefile{toc}{\contentsline {paragraph}{BERT versus CLIP text.}{14}{section*.31}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{CLIP vision.}{14}{section*.32}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Limitations.}{14}{section*.33}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{What we learned.}{14}{section*.34}\protected@file@percent }
+\bibcite{lundberg2017}{1}
+\bibcite{shapdocs}{2}
+\bibcite{devlin2019}{3}
+\bibcite{morris2020}{4}
+\bibcite{socher2013}{5}
+\bibcite{wang2019}{6}
+\bibcite{radford2021}{7}
+\bibcite{dosovitskiy2021}{8}
+\bibcite{deyoung2020}{9}
+\@writefile{toc}{\contentsline {section}{\numberline {7}Conclusion}{15}{section.7}\protected@file@percent }
+\newlabel{sec:conclusion}{{7}{15}{Conclusion}{section.7}{}}
+\bibcite{samek2017}{10}
+\bibcite{petsiuk2018}{11}
+\bibcite{zhang2018}{12}
+\@writefile{toc}{\contentsline {section}{\numberline {A}Qualitative sentence set}{17}{section.A}\protected@file@percent }
+\newlabel{app:sentences}{{A}{17}{Qualitative sentence set}{section.A}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {9}{\ignorespaces Complete qualitative sentence set used in experiments A and B.}}{17}{table.caption.36}\protected@file@percent }
+\newlabel{tab:sentences}{{9}{17}{Complete qualitative sentence set used in experiments A and B}{table.caption.36}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {B}CLIP text prompt families}{17}{section.B}\protected@file@percent }
+\newlabel{app:prompts}{{B}{17}{CLIP text prompt families}{section.B}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {10}{\ignorespaces Prompts used to build the CLIP text prototypes.}}{17}{table.caption.37}\protected@file@percent }
+\newlabel{tab:prompts}{{10}{17}{Prompts used to build the CLIP text prototypes}{table.caption.37}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {C}Target boxes for the pointing game}{17}{section.C}\protected@file@percent }
+\newlabel{app:boxes}{{C}{17}{Target boxes for the pointing game}{section.C}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {11}{\ignorespaces Author-annotated target boxes.}}{18}{table.caption.38}\protected@file@percent }
+\newlabel{tab:boxes}{{11}{18}{Author-annotated target boxes}{table.caption.38}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {D}Additional vision results}{18}{section.D}\protected@file@percent }
+\newlabel{app:extra}{{D}{18}{Additional vision results}{section.D}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces Deletion and insertion curves for each image.}}{18}{figure.caption.39}\protected@file@percent }
+\newlabel{fig:curves-per-image}{{6}{18}{Deletion and insertion curves for each image}{figure.caption.39}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {E}Reproducibility record}{19}{section.E}\protected@file@percent }
+\newlabel{app:repro}{{E}{19}{Reproducibility record}{section.E}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {12}{\ignorespaces Where the results of this report come from.}}{19}{table.caption.40}\protected@file@percent }
+\newlabel{tab:repro}{{12}{19}{Where the results of this report come from}{table.caption.40}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {F}Complete BERT sentence-level plots}{20}{section.F}\protected@file@percent }
+\newlabel{app:bert-plots}{{F}{20}{Complete BERT sentence-level plots}{section.F}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces BERT, sentence S1: all five SHAP plots.}}{20}{figure.caption.41}\protected@file@percent }
+\newlabel{fig:bert-S1}{{7}{20}{BERT, sentence S1: all five SHAP plots}{figure.caption.41}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces BERT, sentence S2: all five SHAP plots.}}{21}{figure.caption.42}\protected@file@percent }
+\newlabel{fig:bert-S2}{{8}{21}{BERT, sentence S2: all five SHAP plots}{figure.caption.42}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {9}{\ignorespaces BERT, sentence S3: all five SHAP plots.}}{22}{figure.caption.43}\protected@file@percent }
+\newlabel{fig:bert-S3}{{9}{22}{BERT, sentence S3: all five SHAP plots}{figure.caption.43}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {10}{\ignorespaces BERT, sentence S4: all five SHAP plots.}}{23}{figure.caption.44}\protected@file@percent }
+\newlabel{fig:bert-S4}{{10}{23}{BERT, sentence S4: all five SHAP plots}{figure.caption.44}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {11}{\ignorespaces BERT, sentence S5: all five SHAP plots.}}{24}{figure.caption.45}\protected@file@percent }
+\newlabel{fig:bert-S5}{{11}{24}{BERT, sentence S5: all five SHAP plots}{figure.caption.45}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {12}{\ignorespaces BERT, sentence S6: all five SHAP plots.}}{25}{figure.caption.46}\protected@file@percent }
+\newlabel{fig:bert-S6}{{12}{25}{BERT, sentence S6: all five SHAP plots}{figure.caption.46}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {13}{\ignorespaces BERT, sentence S7: all five SHAP plots.}}{26}{figure.caption.47}\protected@file@percent }
+\newlabel{fig:bert-S7}{{13}{26}{BERT, sentence S7: all five SHAP plots}{figure.caption.47}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {14}{\ignorespaces BERT, sentence S8: all five SHAP plots.}}{27}{figure.caption.48}\protected@file@percent }
+\newlabel{fig:bert-S8}{{14}{27}{BERT, sentence S8: all five SHAP plots}{figure.caption.48}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {15}{\ignorespaces BERT, sentence S9: all five SHAP plots.}}{28}{figure.caption.49}\protected@file@percent }
+\newlabel{fig:bert-S9}{{15}{28}{BERT, sentence S9: all five SHAP plots}{figure.caption.49}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {16}{\ignorespaces BERT, sentence S10: all five SHAP plots.}}{29}{figure.caption.50}\protected@file@percent }
+\newlabel{fig:bert-S10}{{16}{29}{BERT, sentence S10: all five SHAP plots}{figure.caption.50}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {G}Complete CLIP text sentence-level plots}{30}{section.G}\protected@file@percent }
+\newlabel{app:clip-plots}{{G}{30}{Complete CLIP text sentence-level plots}{section.G}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {17}{\ignorespaces CLIP text, sentence S1: all five SHAP plots.}}{30}{figure.caption.51}\protected@file@percent }
+\newlabel{fig:clip-S1}{{17}{30}{CLIP text, sentence S1: all five SHAP plots}{figure.caption.51}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {18}{\ignorespaces CLIP text, sentence S2: all five SHAP plots.}}{31}{figure.caption.52}\protected@file@percent }
+\newlabel{fig:clip-S2}{{18}{31}{CLIP text, sentence S2: all five SHAP plots}{figure.caption.52}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {19}{\ignorespaces CLIP text, sentence S3: all five SHAP plots.}}{32}{figure.caption.53}\protected@file@percent }
+\newlabel{fig:clip-S3}{{19}{32}{CLIP text, sentence S3: all five SHAP plots}{figure.caption.53}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {20}{\ignorespaces CLIP text, sentence S4: all five SHAP plots.}}{33}{figure.caption.54}\protected@file@percent }
+\newlabel{fig:clip-S4}{{20}{33}{CLIP text, sentence S4: all five SHAP plots}{figure.caption.54}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {21}{\ignorespaces CLIP text, sentence S5: all five SHAP plots.}}{34}{figure.caption.55}\protected@file@percent }
+\newlabel{fig:clip-S5}{{21}{34}{CLIP text, sentence S5: all five SHAP plots}{figure.caption.55}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {22}{\ignorespaces CLIP text, sentence S6: all five SHAP plots.}}{35}{figure.caption.56}\protected@file@percent }
+\newlabel{fig:clip-S6}{{22}{35}{CLIP text, sentence S6: all five SHAP plots}{figure.caption.56}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {23}{\ignorespaces CLIP text, sentence S7: all five SHAP plots.}}{36}{figure.caption.57}\protected@file@percent }
+\newlabel{fig:clip-S7}{{23}{36}{CLIP text, sentence S7: all five SHAP plots}{figure.caption.57}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {24}{\ignorespaces CLIP text, sentence S8: all five SHAP plots.}}{37}{figure.caption.58}\protected@file@percent }
+\newlabel{fig:clip-S8}{{24}{37}{CLIP text, sentence S8: all five SHAP plots}{figure.caption.58}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {25}{\ignorespaces CLIP text, sentence S9: all five SHAP plots.}}{38}{figure.caption.59}\protected@file@percent }
+\newlabel{fig:clip-S9}{{25}{38}{CLIP text, sentence S9: all five SHAP plots}{figure.caption.59}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {26}{\ignorespaces CLIP text, sentence S10: all five SHAP plots.}}{39}{figure.caption.60}\protected@file@percent }
+\newlabel{fig:clip-S10}{{26}{39}{CLIP text, sentence S10: all five SHAP plots}{figure.caption.60}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {H}Complete CLIP vision patch-level plots}{40}{section.H}\protected@file@percent }
+\newlabel{app:vision-plots}{{H}{40}{Complete CLIP vision patch-level plots}{section.H}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {27}{\ignorespaces CLIP vision, image I1: 7$\times $7 patch SHAP values over the 224$\times $224 model input.}}{40}{figure.caption.61}\protected@file@percent }
+\newlabel{fig:overlay-I1}{{27}{40}{CLIP vision, image I1: 7$\times $7 patch SHAP values over the 224$\times $224 model input}{figure.caption.61}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {28}{\ignorespaces CLIP vision, image I2: 7$\times $7 patch SHAP values over the 224$\times $224 model input.}}{40}{figure.caption.61}\protected@file@percent }
+\newlabel{fig:overlay-I2}{{28}{40}{CLIP vision, image I2: 7$\times $7 patch SHAP values over the 224$\times $224 model input}{figure.caption.61}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {29}{\ignorespaces CLIP vision, image I3: 7$\times $7 patch SHAP values over the 224$\times $224 model input.}}{41}{figure.caption.62}\protected@file@percent }
+\newlabel{fig:overlay-I3}{{29}{41}{CLIP vision, image I3: 7$\times $7 patch SHAP values over the 224$\times $224 model input}{figure.caption.62}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {30}{\ignorespaces CLIP vision, image I4: 7$\times $7 patch SHAP values over the 224$\times $224 model input.}}{41}{figure.caption.62}\protected@file@percent }
+\newlabel{fig:overlay-I4}{{30}{41}{CLIP vision, image I4: 7$\times $7 patch SHAP values over the 224$\times $224 model input}{figure.caption.62}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {31}{\ignorespaces CLIP vision, image I5: 7$\times $7 patch SHAP values over the 224$\times $224 model input.}}{42}{figure.caption.63}\protected@file@percent }
+\newlabel{fig:overlay-I5}{{31}{42}{CLIP vision, image I5: 7$\times $7 patch SHAP values over the 224$\times $224 model input}{figure.caption.63}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {32}{\ignorespaces CLIP vision, image I6: 7$\times $7 patch SHAP values over the 224$\times $224 model input.}}{42}{figure.caption.63}\protected@file@percent }
+\newlabel{fig:overlay-I6}{{32}{42}{CLIP vision, image I6: 7$\times $7 patch SHAP values over the 224$\times $224 model input}{figure.caption.63}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {33}{\ignorespaces CLIP vision, image I7: 7$\times $7 patch SHAP values over the 224$\times $224 model input.}}{43}{figure.caption.64}\protected@file@percent }
+\newlabel{fig:overlay-I7}{{33}{43}{CLIP vision, image I7: 7$\times $7 patch SHAP values over the 224$\times $224 model input}{figure.caption.64}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {34}{\ignorespaces CLIP vision, image I8: 7$\times $7 patch SHAP values over the 224$\times $224 model input.}}{43}{figure.caption.64}\protected@file@percent }
+\newlabel{fig:overlay-I8}{{34}{43}{CLIP vision, image I8: 7$\times $7 patch SHAP values over the 224$\times $224 model input}{figure.caption.64}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {35}{\ignorespaces CLIP vision, image I9: 7$\times $7 patch SHAP values over the 224$\times $224 model input.}}{44}{figure.caption.65}\protected@file@percent }
+\newlabel{fig:overlay-I9}{{35}{44}{CLIP vision, image I9: 7$\times $7 patch SHAP values over the 224$\times $224 model input}{figure.caption.65}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {36}{\ignorespaces CLIP vision, image I10: 7$\times $7 patch SHAP values over the 224$\times $224 model input.}}{44}{figure.caption.65}\protected@file@percent }
+\newlabel{fig:overlay-I10}{{36}{44}{CLIP vision, image I10: 7$\times $7 patch SHAP values over the 224$\times $224 model input}{figure.caption.65}{}}
+\gdef \@abspage@last{49}

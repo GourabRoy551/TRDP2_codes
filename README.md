@@ -5,9 +5,11 @@ classifier, of the CLIP text encoder used as a zero-shot sentiment classifier, a
 vision encoder. It also covers the evaluation of these explanations with faithfulness and
 plausibility metrics.
 
-This repository contains **code, configurations, documentation and small input data only**.
-Generated outputs are not included: SHAP values, plots, PDFs, checkpoints and logs are
-recreated by running the projects. Images and large datasets are also left out.
+The project folders contain **code, configurations, documentation and small input data
+only**. Generated outputs are not included there: SHAP values, plots, PDFs, checkpoints and
+logs are recreated by running the projects, and images and large datasets are also left
+out. The exception is `final_report/`, which is kept complete. It holds the collected
+results and figures used in the final report, and the compiled report PDF.
 
 ## Projects
 
@@ -21,7 +23,7 @@ recreated by running the projects. Images and large datasets are also left out.
 | `bert_clip_shap_faithfulness_metrics/` | comprehensiveness, sufficiency, deletion AOPC and token-level rationale P/R/F1 (SST lexical proxy) for the 500-sentence explanations |
 | `clip_vision_shap_faithfulness_metrics/` | deletion AUC, insertion AUC, AOPC and pointing game for the CLIP vision explanations, including the author-annotated target boxes |
 | `bert_clip_partition_shap_report/` | LaTeX report of the 500-sentence experiment |
-| `final_report/` | script that collects results and figures for the final report; `report2/` holds the final report's LaTeX source |
+| `final_report/` | everything used for the final report: metric results (`01_`, `05_`), all S1–S10 and I1–I10 plots (`02_`–`04_`), `MANIFEST.csv`, the collect script, and `report2/` with the LaTeX source and the compiled PDF `TRDP2_SHAP_Report.pdf` |
 
 Every project has its own `README.md` with the method, settings, checks and run commands.
 

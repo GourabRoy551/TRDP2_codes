@@ -22,3 +22,7 @@ build/
 *.npy
 *.npz
 *.xlsx
+
+# final_report/ is kept complete: collected results, figures and the compiled report
+!final_report/
+!final_report/**
