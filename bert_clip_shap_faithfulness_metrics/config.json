@@ -1,0 +1,30 @@
+{
+  "experiment_name": "bert_clip_shap_faithfulness_metrics",
+  "description": "Comprehensiveness, sufficiency, deletion AOPC and token-level rationale F1 for the already-computed whole-word POS-NEG margin Partition SHAP values of BERT and CLIP-text on the 500-sentence SST-2 set.",
+  "source_experiment": "../bert_clip_partition_shap_500",
+  "models": ["bert", "clip"],
+  "explanation_target": "POS-NEG",
+  "ranking": {
+    "name": "shap_abs",
+    "rule": "content words ordered by |phi_margin| descending, ties broken by word position (the source experiment's primary deletion ranking); punctuation units are never ranked or removed"
+  },
+  "fractions": [0.1, 0.2, 0.3, 0.5],
+  "normalization_epsilon": 1e-6,
+  "comprehensiveness_sufficiency_scale": {
+    "name": "model_mean_abs_decision_score",
+    "rule": "raw comprehensiveness and sufficiency are divided by S_model = mean over the 500 sentences of |s(x)|, s(x) = d * margin(x); one constant per model"
+  },
+  "sufficiency_keep_rule": "keep the top-k content words and every punctuation unit; delete all other content words with the same whole-word deletion masker",
+  "aopc_reproduction_tolerance": 1e-12,
+  "rationale": {
+    "reference_columns_searched": ["rationale", "evidence", "highlight", "annotation", "mask", "span"],
+    "reference": "sst_word_sentiment_lexicon",
+    "sst_dictionary_path": "D:/Research/TRDP_Study Note/TRDP1/trdp/sst2_quantitative_analysis/data/SST-2/original/dictionary.txt",
+    "sst_sentiment_labels_path": "D:/Research/TRDP_Study Note/TRDP1/trdp/sst2_quantitative_analysis/data/SST-2/original/sentiment_labels.txt",
+    "sst2_dev_path": "D:/Research/TRDP_Study Note/TRDP1/trdp/sst2_quantitative_analysis/data/SST-2/dev.tsv",
+    "reference_rule": "content word whose SST human sentiment rating is outside the SST neutral interval (0.4, 0.6], i.e. rating <= 0.4 or rating > 0.6",
+    "selection_rule": "SHAP-selected words = the same top-k content words (|phi_margin| ranking, k_f = max(1, ceil(f * n_content))) used for comprehensiveness and sufficiency; P/R/F1 per fraction, averaged over the fractions",
+    "empty_reference_rule": "sentences with no reference sentiment word are excluded (recall undefined); the reference does not depend on the model, so the excluded sentences are identical for BERT and CLIP",
+    "note": "The evaluation CSV has no human rationale annotations. The SST word ratings are human, but context-free: they are a lexical proxy for rationales, not rationales for each sentence's label."
+  }
+}

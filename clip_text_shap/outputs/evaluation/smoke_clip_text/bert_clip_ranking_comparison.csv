@@ -1,3 +1,0 @@
-sentence_id,gold_label,clip_prediction,bert_prediction,prediction_agreement,shared_word_count,spearman_margin_rank,top3_overlap_count,top3_jaccard,margin_sign_agreement,clip_top3_words,bert_top3_words,comparison_note
-S1,POS,POS,POS,1,11,0.46225345561352416,1,0.2,0.7272727272727273,a | beautiful | film,beautiful | portrait | resilience,Ranks/directions only; raw BERT logits and CLIP cosine similarities are not magnitude-comparable.
-S2,NEG,NEG,NEG,1,10,0.03077287274483318,0,0.0,0.5,is | movie | this,and | money | waste,Ranks/directions only; raw BERT logits and CLIP cosine similarities are not magnitude-comparable.

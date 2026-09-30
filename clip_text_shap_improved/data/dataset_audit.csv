@@ -1,0 +1,18 @@
+category,metric,value,status,details
+source,train_raw_rows,67349,PASS,"Expected 67,349"
+source,train_usable_rows,67347,PASS,"67,349 raw minus 2 documented punctuation-only exclusions"
+source,dev_raw_rows,872,PASS,Expected 872
+source,dev_usable_rows,872,PASS,All development rows are usable
+source,train_excluded_rows,2,PASS,"{""empty_normalized_text"": 2}"
+source,dev_excluded_rows,0,PASS,{}
+duplicates,train_normalized_duplicate_groups,8251,INFO,Each group stays within one internal split
+duplicates,train_conflicting_label_groups,153,INFO,Conflicting groups also stay within one split
+leakage,train_validation_normalized_overlap,0,PASS,Must be zero
+split,training_rows,60612,PASS,"{""NEG"": 26801, ""POS"": 33811}"
+split,prompt_validation_rows,6735,PASS,"{""NEG"": 2978, ""POS"": 3757}"
+split,stability_rows,40,PASS,"{""NEG"": 20, ""POS"": 20}"
+final,final_rows,500,PASS,"{""NEG"": 250, ""POS"": 250}"
+final,previously_inspected_overlap,0,PASS,Must be zero
+final,over_77_token_rows,0,PASS,Must be zero
+final,unique_normalized_texts,500,PASS,Must equal 500
+pilot,pilot_rows,20,PASS,"{""NEG"": 10, ""POS"": 10}"

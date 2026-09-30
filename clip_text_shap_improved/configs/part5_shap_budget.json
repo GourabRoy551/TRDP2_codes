@@ -1,0 +1,23 @@
+{
+  "model_name": "openai/clip-vit-base-patch32",
+  "stability_path": "data/shap_stability_40.csv",
+  "frozen_prompt_manifest_path": "configs/frozen_prompt_manifest.json",
+  "trained_head_path": "outputs/part4_frozen_head/values/clip_linear_head.npz",
+  "part3_checks_path": "outputs/part3_word_partition/values/part3_checks.json",
+  "part4_checks_path": "outputs/part4_frozen_head/values/part4_checks.json",
+  "output_dir": "outputs/part5_shap_budget",
+  "device": "auto",
+  "max_length": 77,
+  "budgets": [500, 1000, 2000],
+  "reference_budget": 2000,
+  "batch_size": 32,
+  "top_k": 5,
+  "seed": 42,
+  "determinism_sentence_ids": ["ST00008", "ST00014", "ST00020", "ST00032", "ST00038"],
+  "minimum_median_spearman": 0.95,
+  "minimum_median_top_k_overlap": 0.80,
+  "minimum_median_sign_agreement": 0.95,
+  "additivity_tolerance": 0.00001,
+  "determinism_tolerance": 0.0000000001,
+  "local_files_only": true
+}

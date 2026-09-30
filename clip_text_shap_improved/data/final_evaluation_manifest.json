@@ -1,0 +1,46 @@
+{
+  "seed": 42,
+  "source": {
+    "path": "D:\\Research\\TRDP_Study Note\\TRDP1\\trdp\\sst2_quantitative_analysis\\data\\SST-2\\dev.tsv",
+    "sha256": "54a9c12c77e402fc14d6a66a506f24d999f596b0176eb777c972cccc2f9cc4b0",
+    "raw_rows": 872,
+    "usable_rows": 872,
+    "excluded_rows": 0,
+    "usable_labels": {
+      "NEG": 428,
+      "POS": 444
+    }
+  },
+  "selection_method": "Exclude inspected, duplicate and over-limit rows; hash-order eligible rows by label; select 250 NEG and 250 POS.",
+  "previously_inspected_dev_row_ids": [
+    29,
+    59,
+    129,
+    181,
+    212,
+    327,
+    429,
+    504,
+    591,
+    603
+  ],
+  "diagnostics": {
+    "candidate_count_after_quality_exclusions": 862,
+    "previously_inspected_count": 10,
+    "over_token_limit_count": 0,
+    "normalized_duplicate_count": 0,
+    "not_selected_count": 362
+  },
+  "outputs": {
+    "final_evaluation": {
+      "path": "final_evaluation_500.csv",
+      "rows": 500,
+      "sha256": "61163db6cef66452b90b74cbe0c20b40bd62acf78f3d27d41e7298b630cd25ac"
+    },
+    "excluded_rows": {
+      "path": "excluded_dev_rows.csv",
+      "rows": 372,
+      "sha256": "19020af58aa5aab0cdb62ad5ffd795ac8ec0d64b202288448d9d6687e2ec21d4"
+    }
+  }
+}

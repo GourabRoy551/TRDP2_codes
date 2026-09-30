@@ -1,0 +1,112 @@
+{
+  "experiment_name": "bert_clip_partition_shap_500",
+  "random_seed": 42,
+  "device": "auto",
+  "local_files_only": true,
+  "dataset": {
+    "evaluation_path": "data/evaluation_500.csv",
+    "manifest_path": "data/dataset_manifest.json",
+    "source_path": "../clip_text_shap_improved/data/final_evaluation_500.csv",
+    "source_manifest_path": "../clip_text_shap_improved/data/final_evaluation_manifest.json",
+    "expected_rows": 500,
+    "expected_class_counts": {"NEG": 250, "POS": 250},
+    "id_column": "sentence_id",
+    "text_column": "text",
+    "label_column": "gold_label"
+  },
+  "models": {
+    "bert": {
+      "name_or_path": "textattack/bert-base-uncased-SST-2",
+      "description": "BERT-base-uncased already fine-tuned on SST-2 by TextAttack; used frozen, no new training",
+      "max_length": 128,
+      "label_mapping_fallback": {
+        "NEG": 0,
+        "POS": 1,
+        "source": "The checkpoint config only contains generic id2label names (LABEL_0/LABEL_1). The mapping index 0=NEG, index 1=POS is the GLUE SST-2 convention, was verified by ../bert_shap/VERIFICATION.md (10/10 S1-S10) and ../clip_text_shap_improved Part 7 (bert_label_mapping in part7_checks.json), and is re-verified here on the independent S1-S10 sentences below before any scoring of the evaluation set."
+      },
+      "label_mapping_check_source": "../bert_shap/data/sentences.csv (S1-S10, hand-written, not part of the 500-sentence evaluation set)",
+      "label_mapping_check_sentences": [
+        {"id": "S1", "text": "The film is a beautiful and moving portrait of human resilience.", "gold_label": "POS"},
+        {"id": "S2", "text": "This movie is an absolute waste of time and money.", "gold_label": "NEG"},
+        {"id": "S3", "text": "It's a bit slow at times but the performances are outstanding.", "gold_label": "POS"},
+        {"id": "S4", "text": "A dull, tedious and completely forgettable experience.", "gold_label": "NEG"},
+        {"id": "S5", "text": "The direction is inspired and the acting is nothing short of brilliant.", "gold_label": "POS"},
+        {"id": "S6", "text": "A masterpiece of storytelling with breathtaking visuals and emotion.", "gold_label": "POS"},
+        {"id": "S7", "text": "Painfully boring and utterly devoid of any originality or charm.", "gold_label": "NEG"},
+        {"id": "S8", "text": "The screenplay is weak but the lead actor delivers a captivating turn.", "gold_label": "POS"},
+        {"id": "S9", "text": "A hollow and disappointing sequel that betrays everything the original stood for.", "gold_label": "NEG"},
+        {"id": "S10", "text": "Funny, heartfelt and endlessly entertaining from beginning to end.", "gold_label": "POS"}
+      ]
+    },
+    "clip": {
+      "name_or_path": "openai/clip-vit-base-patch32",
+      "description": "Frozen CLIP ViT-B/32 text encoder used zero-shot with NEG/POS prompt prototypes; no classification head is trained",
+      "max_length": 77,
+      "prompt_family": "balanced_diverse_ensemble",
+      "prompt_source_manifest": "../clip_text_shap_improved/configs/frozen_prompt_manifest.json",
+      "prompt_selection_note": "Selected in clip_text_shap_improved Part 2 on the internal prompt-validation split (6,735 SST-2 training sentences); selection_uses_final_evaluation=false.",
+      "prompts": {
+        "NEG": [
+          "This is a negative review.",
+          "This movie is terrible.",
+          "The film was disappointing.",
+          "The reviewer disliked the film.",
+          "This film left a bad impression.",
+          "The overall judgement is negative.",
+          "This was an unenjoyable experience.",
+          "I would not recommend this film."
+        ],
+        "POS": [
+          "This is a positive review.",
+          "This movie is excellent.",
+          "The film was satisfying.",
+          "The reviewer liked the film.",
+          "This film left a good impression.",
+          "The overall judgement is positive.",
+          "This was an enjoyable experience.",
+          "I would recommend this film."
+        ]
+      }
+    }
+  },
+  "batch_sizes": {
+    "score": {"bert": 64, "clip": 128},
+    "shap": {"bert": 32, "clip": 32}
+  },
+  "shap": {
+    "algorithm": "partition",
+    "max_evals": 500,
+    "feature_level": "whole_word",
+    "masking": "whole-word deletion (mask_token='', collapse_mask_token=True) followed by re-tokenization",
+    "output_names": ["NEG", "POS", "POS-NEG"]
+  },
+  "faithfulness": {
+    "fractions": [0.1, 0.2, 0.3, 0.5],
+    "random_repeats": 5,
+    "normalization_epsilon": 1e-6
+  },
+  "bootstrap": {
+    "iterations": 1000,
+    "confidence_level": 0.95,
+    "stratify_by": "gold_label"
+  },
+  "top_k": 5,
+  "tolerances": {
+    "margin_linearity": 1e-6,
+    "base_margin_linearity": 1e-6,
+    "additivity": {"clip": 1e-5, "bert": 2e-5},
+    "batch_parity": {"clip": 1e-5, "bert": 2e-5},
+    "rationale": "Float32 model outputs. CLIP cosine similarities are O(0.2) and accumulate ~1e-7 kernel noise; BERT logits are O(4) so float32 round-off and batch-shape-dependent GPU kernels are ~10x larger. Batch-parity tolerances equal the additivity tolerances because both measure the same numerical source (re-evaluating one text under a different batch composition)."
+  },
+  "checkpoint_interval": 25,
+  "parity_check_sentences": 20,
+  "smoke_test_sentences": 5,
+  "masking_audit_random_coalitions": 10,
+  "length_groups": {"short_max_content_words": 10, "medium_max_content_words": 20},
+  "representative_selection": {
+    "readable_min_content_words": 8,
+    "readable_max_content_words": 20,
+    "contrastive_max_content_words": 25,
+    "contrast_markers": ["but", "however", "although", "though", "yet"]
+  }
+}

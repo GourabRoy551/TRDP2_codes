@@ -1,0 +1,60 @@
+{
+  "dataset": "SST-2 development subset, balanced 250 NEG / 250 POS",
+  "evaluation_path": "data/evaluation_500.csv",
+  "source_path": "D:\\ALL_Uni_Documents\\UB\\Courses\\TRDP2\\clip_text_shap_improved\\data\\final_evaluation_500.csv",
+  "source_manifest_path": "D:\\ALL_Uni_Documents\\UB\\Courses\\TRDP2\\clip_text_shap_improved\\data\\final_evaluation_manifest.json",
+  "source_manifest_selection_method": "Exclude inspected, duplicate and over-limit rows; hash-order eligible rows by label; select 250 NEG and 250 POS.",
+  "source_manifest_seed": 42,
+  "original_sst2_source": {
+    "path": "D:\\Research\\TRDP_Study Note\\TRDP1\\trdp\\sst2_quantitative_analysis\\data\\SST-2\\dev.tsv",
+    "sha256": "54a9c12c77e402fc14d6a66a506f24d999f596b0176eb777c972cccc2f9cc4b0",
+    "raw_rows": 872,
+    "usable_rows": 872,
+    "excluded_rows": 0,
+    "usable_labels": {
+      "NEG": 428,
+      "POS": 444
+    }
+  },
+  "sha256_copied": "61163db6cef66452b90b74cbe0c20b40bd62acf78f3d27d41e7298b630cd25ac",
+  "sha256_source_file": "61163db6cef66452b90b74cbe0c20b40bd62acf78f3d27d41e7298b630cd25ac",
+  "sha256_source_manifest": "61163db6cef66452b90b74cbe0c20b40bd62acf78f3d27d41e7298b630cd25ac",
+  "copied_during_this_validation": false,
+  "hash_checks": {
+    "copied_equals_source_file": true,
+    "copied_equals_source_manifest": true,
+    "source_manifest_row_count_matches": true
+  },
+  "validation": {
+    "rows": 500,
+    "class_counts": {
+      "NEG": 250,
+      "POS": 250
+    },
+    "duplicate_ids": [],
+    "duplicate_normalized_texts": [],
+    "missing_text_ids": [],
+    "invalid_labels": [],
+    "text_hash_mismatches": [],
+    "normalized_hash_mismatches": [],
+    "first_sentence_id": "EV00001",
+    "last_sentence_id": "EV00500",
+    "sentence_order_sha256": "d613c2281938796c2e699194d6331104a3ebf73b7a1415de2222c5206a02aa65",
+    "checks": {
+      "exactly_500_rows": true,
+      "exactly_250_neg": true,
+      "exactly_250_pos": true,
+      "unique_sentence_ids": true,
+      "no_duplicate_normalized_text": true,
+      "no_missing_text": true,
+      "only_neg_pos_labels": true,
+      "row_text_sha256_consistent": true,
+      "row_normalized_text_sha256_consistent": true
+    },
+    "all_checks_passed": true
+  },
+  "normalization_rule": "NFKC -> casefold -> non-word runs to single space -> strip (same rule as source preparation)",
+  "modifications": "none (byte-identical copy; no resampling, editing, reordering or relabelling)",
+  "all_checks_passed": true,
+  "validated_at_utc": "2026-09-29T18:01:37+00:00"
+}

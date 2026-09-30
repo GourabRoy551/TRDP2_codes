@@ -1,0 +1,44 @@
+{
+  "seed": 42,
+  "source": {
+    "path": "D:\\Research\\TRDP_Study Note\\TRDP1\\trdp\\sst2_quantitative_analysis\\data\\SST-2\\train.tsv",
+    "sha256": "48eac26399f8456935f81dd9e3a745c1430adb6c62e233ccfe22db4a0d15d1d1",
+    "raw_rows": 67349,
+    "usable_rows": 67347,
+    "excluded_rows": 2,
+    "usable_labels": {
+      "NEG": 29779,
+      "POS": 37568
+    }
+  },
+  "split_method": "Normalized-text groups stay intact. Multi-row groups are deterministically assigned near 10%; unique rows fill exact stratified targets.",
+  "diagnostics": {
+    "normalized_text_groups": 58597,
+    "duplicate_groups": 8251,
+    "duplicate_extra_rows": 8750,
+    "conflicting_label_groups": 153,
+    "normalised_text_overlap_count": 0
+  },
+  "outputs": {
+    "training": {
+      "path": "train_development.csv",
+      "rows": 60612,
+      "sha256": "3315d8b2e38628d9be097d980d5f3d6699eb82b898e571d1470092417e9d7bda"
+    },
+    "prompt_validation": {
+      "path": "prompt_validation.csv",
+      "rows": 6735,
+      "sha256": "324d8fc3d7e054c674032c3752ecafe65fbb31cc15d4337bdb5f5c7859b54d09"
+    },
+    "stability": {
+      "path": "shap_stability_40.csv",
+      "rows": 40,
+      "sha256": "61b6f1b9b96dd1c47793ac2e8f7ac28f8296e09eaf4c469f72b5afff47c9b326"
+    },
+    "excluded_train_rows": {
+      "path": "excluded_train_rows.csv",
+      "rows": 2,
+      "sha256": "2af6e18b2f215381aca88daa770f585beba488d74af50af7f66d93544373c424"
+    }
+  }
+}

@@ -1,0 +1,337 @@
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[margin=2.35cm]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs,tabularx,array}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{float}
+\usepackage{xcolor}
+\usepackage{microtype}
+\usepackage{fancyhdr}
+\usepackage[hidelinks]{hyperref}
+
+\definecolor{bertblue}{HTML}{2F78D1}
+\definecolor{cliporange}{HTML}{F0642D}
+\definecolor{softgray}{HTML}{F3F4F6}
+\definecolor{darkgray}{HTML}{343A40}
+
+\hypersetup{
+  pdftitle={Comparing BERT and the CLIP Text Encoder with Whole-Word Partition SHAP},
+  pdfauthor={Mohsin and Gourab}
+}
+
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{BERT--CLIP sentiment analysis with Partition SHAP}
+\rhead{TRDP II}
+\cfoot{\thepage}
+\setlength{\headheight}{14pt}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.55em}
+\renewcommand{\arraystretch}{1.15}
+
+\newcommand{\bert}{\textcolor{bertblue}{\textbf{BERT}}}
+\newcommand{\clipmodel}{\textcolor{cliporange}{\textbf{CLIP text}}}
+\newcommand{\phim}{\phi^{\mathrm{margin}}}
+
+\title{\vspace{-1.2cm}\textbf{Comparing BERT and the CLIP Text Encoder\\with Whole-Word Partition SHAP}\\[0.5em]
+\large A 500-sentence SST-2 evaluation}
+\author{Mohsin and Gourab}
+\date{September 2026}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+This report studies how two different language representations explain sentiment decisions. We compare an SST-2 fine-tuned BERT classifier with the frozen text encoder of CLIP used as a zero-shot classifier. Both models process the same 500 balanced SST-2 sentences. Whole-word Partition SHAP is used to explain the negative score, positive score, and the positive-minus-negative decision margin. The comparison covers classification performance, numerical additivity, deletion faithfulness, explanation agreement, and computational cost. BERT is the stronger classifier, while both models produce numerically consistent explanations. Deleting SHAP-ranked words changes predictions more often than deleting random words for both models. However, the two models often focus on different words, and CLIP's sentiment margin is much smaller and less stable than BERT's.
+\end{abstract}
+
+\section{Introduction}
+
+The aim of this experiment was to understand not only which sentiment label a model predicts, but also which words contribute to that decision. We used Partition SHAP because it can explain text models without changing or retraining them. The same evaluation sentences and the same whole-word divisions were used for BERT and CLIP, so the explanations can be compared sentence by sentence.
+
+The report addresses four practical questions:
+\begin{enumerate}
+  \item How accurately do BERT and the CLIP text encoder classify the selected SST-2 sentences?
+  \item Do the word-level SHAP values reconstruct the model scores correctly?
+  \item Does removing highly ranked words affect the prediction more than removing random words?
+  \item To what extent do BERT and CLIP select the same important words?
+\end{enumerate}
+
+No training or fine-tuning was performed during this experiment. BERT was already fine-tuned on SST-2 by the checkpoint publisher, while CLIP was kept frozen and used with fixed negative and positive text prompts.
+
+\section{Experimental setup}
+
+\subsection{Dataset}
+
+The evaluation set contains 500 sentences selected from the SST-2 development split: 250 negative and 250 positive. There are no duplicate sentence identifiers, duplicate normalized sentences, missing texts, or invalid labels. Exactly the same ordered set was processed by both models.
+
+\subsection{Models}
+
+\textbf{BERT.} We used \texttt{textattack/bert-base-uncased-SST-2}, a binary sentiment classifier. Its two raw outputs are the negative and positive logits. All parameters were frozen and the model was evaluated in inference mode.
+
+\textbf{CLIP text encoder.} We used the text branch of \texttt{openai/clip-vit-base-patch32}. Eight fixed prompts described each class. The normalized prompt embeddings were averaged to form one negative prototype and one positive prototype. For class $c$, the prototype and score are
+\begin{align}
+  p_c &= \operatorname{norm}\!\left(\frac{1}{J}\sum_{j=1}^{J}\operatorname{norm}(E(t_{c,j}))\right),\\
+  f_c(x) &= \operatorname{norm}(E(x))^{\top}p_c,
+\end{align}
+where $E$ is the frozen CLIP text encoder and $J=8$ prompts per class. These scores are cosine similarities, not BERT logits, so their raw magnitudes should not be compared directly.
+
+For both models, the decision margin is
+\begin{equation}
+  f_{\mathrm{margin}}(x)=f_{\mathrm{POS}}(x)-f_{\mathrm{NEG}}(x).
+\end{equation}
+A positive margin gives a POS prediction; a zero or negative margin gives a NEG prediction.
+
+\section{Whole-word Partition SHAP}
+
+\subsection{Explanation features and masking}
+
+Each sentence was divided into external whole-word units. Contractions and hyphenated words were kept together when possible, while punctuation was stored as a separate non-content unit. These units were shared by both models. When a unit was unavailable in a coalition, it was deleted from the sentence; the remaining text was then tokenized again by BERT's WordPiece tokenizer or CLIP's BPE tokenizer.
+
+For an output $c$ and word $i$, the ordinary Shapley value is
+\begin{equation}
+\phi_{i,c}=
+\sum_{S\subseteq N\setminus\{i\}}
+\frac{|S|!\,(M-|S|-1)!}{M!}
+\left[v_c(S\cup\{i\})-v_c(S)\right],
+\end{equation}
+where $N$ is the set of $M$ words, $S$ is a coalition that does not contain $i$, and $v_c(S)=f_c(x_S)$ is the model score for the text containing coalition $S$.
+
+Enumerating all $2^M$ coalitions is generally too expensive. Partition SHAP builds a hierarchical tree over neighbouring text units and evaluates hierarchy-consistent coalitions. The resulting attributions are hierarchical Owen values. In this experiment the SHAP library's Partition explainer was used with a maximum budget of 500 model evaluations per sentence.
+
+\subsection{Three explained outputs}
+
+We explained three outputs simultaneously:
+\begin{equation}
+  \left[f_{\mathrm{NEG}}(x),\;f_{\mathrm{POS}}(x),\;f_{\mathrm{POS}}(x)-f_{\mathrm{NEG}}(x)\right].
+\end{equation}
+Therefore every word receives a NEG, POS, and POS--NEG SHAP value. Because the margin is a linear combination of the two class scores,
+\begin{equation}
+  \phi_{i,\mathrm{margin}}=\phi_{i,\mathrm{POS}}-\phi_{i,\mathrm{NEG}}.
+\end{equation}
+
+The local additivity check for output $c$ is
+\begin{equation}
+  f_c(x)\approx \phi_{0,c}+\sum_{i=1}^{M}\phi_{i,c},
+  \qquad
+  r_c=\left|f_c(x)-\left(\phi_{0,c}+\sum_i\phi_{i,c}\right)\right|,
+\end{equation}
+where $\phi_{0,c}$ is the all-masked baseline and $r_c$ is the numerical residual.
+
+\section{Evaluation metrics}
+
+\subsection{Classification and confusion matrices}
+
+Accuracy, balanced accuracy, and macro-F1 were calculated on the 500 sentences. Macro-F1 gives the negative and positive classes equal importance:
+\begin{equation}
+  F_{1,c}=\frac{2P_cR_c}{P_c+R_c},
+  \qquad
+  \operatorname{MacroF1}=\frac{F_{1,\mathrm{NEG}}+F_{1,\mathrm{POS}}}{2}.
+\end{equation}
+
+A confusion matrix uses gold labels as rows and model predictions as columns. The diagonal cells are correct predictions. The upper-right cell contains negative sentences predicted as positive, and the lower-left cell contains positive sentences predicted as negative.
+
+\subsection{Deletion faithfulness}
+
+Faithfulness was tested by deleting 10\%, 20\%, 30\%, and 50\% of the content words. Words were ranked by the absolute POS--NEG SHAP value. Five deterministic random rankings were evaluated as a baseline.
+
+Let $d=+1$ for an original POS prediction and $d=-1$ for an original NEG prediction. The decision score is $s(x)=d\,f_{\mathrm{margin}}(x)$. For deletion fraction $q$,
+\begin{align}
+  \Delta_q &= s(x)-s(x_{\setminus R_q}),\\
+  \widetilde{\Delta}_q &= \frac{\Delta_q}{|s(x)|+10^{-6}},\\
+  \operatorname{AOPC} &= \frac{1}{|Q|}\sum_{q\in Q}\widetilde{\Delta}_q,
+  \qquad Q=\{0.1,0.2,0.3,0.5\}.
+\end{align}
+We also recorded whether each perturbed sentence changed the model's predicted class. The prediction-flip rate is less affected by differences between logit and cosine scales.
+
+\subsection{Cross-model explanation agreement}
+
+The two models were compared using scale-independent measures over identical content words:
+\begin{itemize}
+  \item Spearman correlation between the rankings of $|\phim_i|$;
+  \item overlap rate and Jaccard similarity between the two top-five word sets;
+  \item sign agreement, showing how often the margin contributions point in the same direction.
+\end{itemize}
+All reported confidence intervals are 95\% stratified bootstrap intervals based on 1,000 paired resamples.
+
+\section{Results}
+
+\subsection{Model performance}
+
+\begin{table}[H]
+\centering
+\caption{Classification results on the same 500 balanced sentences.}
+\label{tab:classification}
+\begin{tabular}{lccc}
+\toprule
+Model & Accuracy & Macro-F1 & Balanced accuracy\\
+\midrule
+BERT (SST-2 fine-tuned) & \textbf{0.936} & \textbf{0.936} & \textbf{0.936}\\
+CLIP text (zero-shot) & 0.702 & 0.702 & 0.702\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+BERT classified 468 of the 500 sentences correctly, whereas CLIP classified 351 correctly. This difference is expected: BERT was trained directly for SST-2 sentiment classification, while CLIP was used without a trained sentiment head. The comparison therefore tells us how the two fixed systems behave in this task; it is not a claim that one architecture is universally better.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{figures/model_performance.pdf}
+  \caption{Classification scores and row-normalized confusion matrices. The BERT matrix contains 231 true negatives, 19 false positives, 13 false negatives, and 237 true positives. CLIP contains 172, 78, 71, and 179 respectively.}
+  \label{fig:performance}
+\end{figure}
+
+The confusion matrices show that both models are reasonably balanced across the two classes. BERT makes few errors in either direction. CLIP produces more false positives and false negatives, but does not collapse to predicting only one class.
+
+\subsection{Additivity and output consistency}
+
+\begin{table}[H]
+\centering
+\caption{Maximum additivity residuals over 500 sentences.}
+\label{tab:additivity}
+\begin{tabular}{lcccc}
+\toprule
+Model & NEG & POS & POS--NEG & Tolerance\\
+\midrule
+BERT & $5.5\times10^{-6}$ & $4.6\times10^{-6}$ & $9.9\times10^{-6}$ & $2\times10^{-5}$\\
+CLIP & $5.1\times10^{-7}$ & $5.7\times10^{-7}$ & $4.2\times10^{-7}$ & $1\times10^{-5}$\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+All 500 sentences passed for every output in both models. The margin identity also passed: the largest word-level error in $\phi_{\mathrm{margin}}-(\phi_{\mathrm{POS}}-\phi_{\mathrm{NEG}})$ was $8.9\times10^{-16}$ for BERT and $6.6\times10^{-18}$ for CLIP. This confirms that the saved values are internally consistent. It does not by itself prove that an important-looking word is semantically correct; that is why the deletion experiment is also needed.
+
+\subsection{Deletion faithfulness}
+
+\begin{table}[H]
+\centering
+\caption{Main deletion results. Values are means over four deletion fractions.}
+\label{tab:faithfulness}
+\begin{tabularx}{\textwidth}{l>{\centering\arraybackslash}X>{\centering\arraybackslash}X>{\centering\arraybackslash}X}
+\toprule
+Model & SHAP flip rate & Random flip rate & SHAP $-$ random\\
+\midrule
+BERT & \textbf{0.366} & 0.133 & \textbf{+0.233}\\
+CLIP text & \textbf{0.365} & 0.222 & \textbf{+0.143}\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+For both models, deleting SHAP-ranked words changes the prediction more often than deleting randomly selected words. BERT also gives a clear mean normalized AOPC advantage: 0.890 for SHAP against 0.365 for random deletion. CLIP's mean normalized AOPC is unstable because several original margins are extremely close to zero. Its mean values, $-0.368$ for SHAP and 0.008 for random, should therefore not be interpreted alone. More robust evidence favours SHAP for CLIP: the median paired AOPC difference is 0.380, SHAP beats random on 71.6\% of sentences, and its flip-rate advantage is 0.143.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{figures/faithfulness.pdf}
+  \caption{Deletion faithfulness. The curves use robust medians, while the AOPC panel also shows the unstable means. Prediction flips provide a scale-independent view of the effect of deleting important words.}
+  \label{fig:faithfulness}
+\end{figure}
+
+Our interpretation is that the BERT ranking is strongly faithful under deletion. The CLIP ranking also carries useful information, but its very small decision margins make normalized averages noisy. For presentations, the deletion curves, medians, and prediction-flip rates are safer than CLIP's mean normalized AOPC.
+
+\subsection{Do BERT and CLIP highlight the same words?}
+
+\begin{table}[H]
+\centering
+\caption{Agreement between BERT and CLIP margin explanations.}
+\label{tab:agreement}
+\begin{tabular}{lcc}
+\toprule
+Metric & Mean [95\% CI] & Chance level\\
+\midrule
+Spearman $\rho$ of $|\phim|$ & 0.237 [0.210, 0.263] & 0\\
+Top-5 overlap & 0.506 [0.484, 0.529] & 0.386\\
+Top-5 Jaccard & 0.380 [0.356, 0.403] & 0.285\\
+Sign agreement & 0.606 [0.594, 0.618] & 0.518\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The agreement is positive but weak. On average, the models share about 2.5 of their five highest-ranked words, compared with about 1.9 expected from random rankings. This suggests that they notice some of the same evidence, but they do not construct the sentiment decision in the same way.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{figures/explanation_agreement.pdf}
+  \caption{Scale-free agreement between the two models. The subgroup results remain broadly similar, and the distribution shows substantial sentence-to-sentence variation.}
+  \label{fig:agreement}
+\end{figure}
+
+One reason for the weak agreement is visible in the class-specific outputs. Across all content words, BERT's NEG and POS SHAP values are almost opposites ($r=-0.999$), so they directly express a sentiment contrast. CLIP's NEG and POS values mostly move together ($r=+0.997$). For CLIP, the POS--NEG margin column is therefore the most informative output for sentiment.
+
+\subsection{Representative sentence}
+
+Figure~\ref{fig:example} shows one positive sentence selected before examining its SHAP values. Both systems predict POS correctly, but their explanations have different scales and different patterns. In BERT, words such as \emph{triumph}, \emph{earns}, and \emph{moments} strongly increase the positive margin, while \emph{gentility} and \emph{pathos} decrease it in this particular context. CLIP's class-specific values are larger than its margin values because much of the NEG and POS movement is shared and cancels in the difference.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.95\textwidth]{figures/representative_example.pdf}
+  \caption{Whole-word NEG, POS, and POS--NEG SHAP values for sentence EV00003. Red increases an output and blue decreases it. Colour scales are separate for the two models and must not be compared by intensity.}
+  \label{fig:example}
+\end{figure}
+
+\subsection{Computational cost}
+
+Both models required the same number of coalition evaluations because they used the same word units and partition tree: 300.5 evaluations per sentence on average. On the RTX 4060 used for the experiment, mean SHAP runtime was 0.367 seconds per sentence for BERT and 0.281 seconds for CLIP. A total of 154 sentences reached the 500-evaluation budget. For these longer sentences, the hierarchy is not fully resolved, so the result is a budget-limited Partition SHAP estimate.
+
+\section{Discussion}
+
+The experiment produced three main observations. First, BERT is the more accurate sentiment classifier on this dataset. This is not surprising because it was already fine-tuned on SST-2. Second, the Partition SHAP outputs are numerically reliable for both systems: every explanation satisfies the chosen additivity tolerance and the margin values match POS minus NEG. Third, explanation faithfulness is strongest and easiest to interpret for BERT. CLIP still shows a clear advantage over random deletion in the robust and prediction-flip results, but its small margins make some normalized statistics unstable.
+
+The weak BERT--CLIP agreement is also meaningful. It shows that two models can reach the same sentiment label while relying on different word rankings. In our view, this is why it is useful to present both the classification result and the explanation result. A correct prediction does not guarantee that two models reached it for the same reason.
+
+\section{Limitations}
+
+\begin{itemize}
+  \item The 500 sentences come from one balanced subset of the SST-2 development split, so the results may not transfer to other domains or longer text.
+  \item BERT is task-specific, while CLIP is zero-shot. The classification scores should be interpreted in that context.
+  \item Deleting words can create unnatural sentences. Faithfulness therefore measures sensitivity to this particular perturbation rule.
+  \item CLIP's negative and positive prototypes are very similar, producing small margins and unstable normalized AOPC means.
+  \item Partition SHAP uses a hierarchical coalition structure and a 500-evaluation budget. It does not exhaustively enumerate every possible subset for longer sentences.
+  \item Additivity confirms numerical consistency, not semantic correctness.
+\end{itemize}
+
+\section{Conclusion}
+
+We successfully generated NEG, POS, and POS--NEG whole-word Partition SHAP explanations for BERT and the CLIP text encoder on the same 500 sentences. BERT achieved a macro-F1 of 0.936, compared with 0.702 for zero-shot CLIP. All 1,000 model--sentence explanations passed the numerical checks. SHAP-ranked deletion was more disruptive than random deletion for both systems, providing evidence that the rankings capture prediction-relevant words. The two models showed only limited explanation agreement, and CLIP's sentiment information was clearest in the POS--NEG margin rather than in either class score by itself.
+
+\section*{Reproducibility}
+
+The report is based on the completed sibling folder \texttt{bert\_clip\_partition\_shap\_500}. The experiment used seed 42, 500 evaluation sentences, a maximum of 500 Partition SHAP evaluations per sentence, five random deletion repetitions, and 1,000 stratified bootstrap iterations. The saved CSV values, plots, checkpoints, configuration, and tests remain in that experiment folder. No model was trained or modified while preparing this report.
+
+\begin{thebibliography}{9}
+
+\bibitem{lundberg2017}
+S. M. Lundberg and S.-I. Lee.
+\newblock A unified approach to interpreting model predictions.
+\newblock In \emph{Advances in Neural Information Processing Systems}, 2017.
+
+\bibitem{lundberg2020}
+S. M. Lundberg et al.
+\newblock From local explanations to global understanding with explainable AI for trees.
+\newblock \emph{Nature Machine Intelligence}, 2:56--67, 2020.
+
+\bibitem{bert}
+J. Devlin, M.-W. Chang, K. Lee, and K. Toutanova.
+\newblock BERT: Pre-training of deep bidirectional transformers for language understanding.
+\newblock In \emph{NAACL-HLT}, 2019.
+
+\bibitem{clip}
+A. Radford et al.
+\newblock Learning transferable visual models from natural language supervision.
+\newblock In \emph{Proceedings of ICML}, 2021.
+
+\bibitem{sst2}
+R. Socher et al.
+\newblock Recursive deep models for semantic compositionality over a sentiment treebank.
+\newblock In \emph{EMNLP}, 2013.
+
+\bibitem{shapdocs}
+SHAP documentation.
+\newblock Partition explainer and text masker.
+\newblock \url{https://shap.readthedocs.io/}.
+
+\end{thebibliography}
+
+\end{document}

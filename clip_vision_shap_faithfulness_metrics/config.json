@@ -1,0 +1,22 @@
+{
+  "experiment_name": "clip_vision_shap_faithfulness_metrics",
+  "description": "Deletion AUC, insertion AUC, AOPC and pointing game for the already-computed CLIP ViT-B/32 patch-level Partition SHAP values of images I1-I10.",
+  "source_experiment": "../clip_vision_shap",
+  "source_run_name": "clip_vision_i1_i10",
+  "target_score": "cosine(CLIP image embedding of the perturbed 224x224 input, CLIP image embedding of the original input); the original input scores 1",
+  "ranking": "the 49 ViT-B/32 patches (7x7 of 32x32 px) ordered by |patch SHAP| descending, ties by patch index",
+  "masking": "a removed patch is replaced by the same 128x128 box-blurred image that SHAP used as its masker background (source box_blur + patch_mask + compose)",
+  "curve_steps": "one patch per step, k = 0..49, x = k / 49",
+  "aopc_fractions": [0.1, 0.2, 0.3, 0.5],
+  "rescore_tolerance": 1e-5,
+  "pointing_game": {
+    "annotation_keywords": ["bbox", "box", "mask", "segment", "annotation", "xmin", "ymin", "polygon", "label", "class", "object"],
+    "annotation_extensions": [".json", ".xml", ".txt", ".csv", ".png", ".npy", ".npz", ".mat"],
+    "boxes_path": "annotations/pointing_game_boxes.csv",
+    "box_source": "author-annotated target-object boxes (drafted without seeing the SHAP maps, reviewed and approved by the author on 2026-09-30); the image dataset itself has no boxes or masks",
+    "point": "centre of the highest-|SHAP| patch (the first patch of the ranking), mapped to original-image pixels",
+    "tolerance_px": 15,
+    "boxes_clipped_to_clip_crop": true,
+    "note": "Hit = the point lies inside at least one approved box of the image's target (box clipped to the CLIP centre crop, enlarged by the tolerance). Accuracy = hits / evaluated images."
+  }
+}

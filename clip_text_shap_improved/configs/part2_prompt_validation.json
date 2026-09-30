@@ -1,0 +1,22 @@
+{
+  "model_name": "openai/clip-vit-base-patch32",
+  "validation_path": "data/prompt_validation.csv",
+  "stability_path": "data/shap_stability_40.csv",
+  "prompt_registry_path": "configs/prompt_families.json",
+  "output_dir": "outputs/part2_prompt_validation",
+  "frozen_manifest_path": "configs/frozen_prompt_manifest.json",
+  "device": "auto",
+  "max_length": 77,
+  "embedding_batch_size": 128,
+  "shap_batch_size": 32,
+  "shap_max_evals": 200,
+  "top_k": 5,
+  "seed": 42,
+  "selection_rule": [
+    "macro_f1_descending",
+    "accuracy_descending",
+    "margin_separation_descending",
+    "family_name_ascending"
+  ],
+  "local_files_only": true
+}

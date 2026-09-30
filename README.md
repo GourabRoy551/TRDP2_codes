@@ -1,147 +1,45 @@
-# BERT SHAP Analysis
+# TRDP II: explaining BERT and CLIP with Partition SHAP
 
-This is an independent, readable implementation of the BERT–SHAP experiment.
-It follows the previous TRDP/RFEM project’s checkpoint, S1–S10 sentences,
-labels, maximum sequence length, `[MASK]` perturbation convention, and PDF
-figure style. The existing `TRDP` project is treated as read-only.
+Code for the TRDP II project. It covers Partition SHAP explanations of a BERT sentiment
+classifier, of the CLIP text encoder used as a zero-shot sentiment classifier, and of the CLIP
+vision encoder. It also covers the evaluation of these explanations with faithfulness and
+plausibility metrics.
 
-## Main idea
+This repository contains **code, configurations, documentation and small input data only**.
+Generated outputs are not included: SHAP values, plots, PDFs, checkpoints and logs are
+recreated by running the projects. Images and large datasets are also left out.
 
-The model output explained by SHAP is:
+## Projects
 
-```text
-positive logit - negative logit
-```
+| Folder | What it does |
+|---|---|
+| `bert_shap/` | Partition SHAP for the BERT SST-2 classifier (POS−NEG margin) on the ten qualitative sentences S1–S10, with word aggregation and faithfulness; `academic_report/` holds the LaTeX of the first report |
+| `bert_shap/dual_class_bert/` | the same BERT explanation for the NEG and POS outputs separately |
+| `clip_text_shap/` | CLIP text encoder as a zero-shot sentiment classifier (prompt prototypes), explained for both classes on S1–S10 |
+| `clip_text_shap_improved/` | dataset preparation, prompt validation, word-level masking and the frozen-head study for CLIP text (parts 1–7) |
+| `clip_vision_shap/` | Partition SHAP for the CLIP vision encoder, 7×7 patch values for images I1–I10 |
+| `bert_clip_partition_shap_500/` | whole-word Partition SHAP for BERT and CLIP text on 500 balanced SST-2 sentences |
+| `bert_clip_shap_faithfulness_metrics/` | comprehensiveness, sufficiency, deletion AOPC and token-level rationale P/R/F1 (SST lexical proxy) for the 500-sentence explanations |
+| `clip_vision_shap_faithfulness_metrics/` | deletion AUC, insertion AUC, AOPC and pointing game for the CLIP vision explanations, including the author-annotated target boxes |
+| `bert_clip_partition_shap_report/` | LaTeX report of the 500-sentence experiment |
+| `report_materials/` | script that collects results and figures for the final report, and the final report's LaTeX source |
 
-Consequently, a positive SHAP value pushes the decision toward positive
-sentiment, while a negative value pushes it toward negative sentiment. For each
-sentence, the following additivity relationship is checked:
+Every project has its own `README.md` with the method, settings, checks and run commands.
 
-```text
-model margin ≈ SHAP base value + sum of SHAP values
-```
+## Running
 
-The explainer is SHAP’s text `PartitionExplainer`. It measures the effect of
-hiding features in different coalitions and does not interpret BERT attention
-weights as explanations.
+The projects were run with Python 3.11/3.12, PyTorch 2.12–2.14, Transformers 5.x and SHAP
+0.51–0.52 in a conda environment. The exact versions are in each project's
+`requirements.txt`. Models are loaded from the Hugging Face cache:
+`textattack/bert-base-uncased-SST-2` and `openai/clip-vit-base-patch32`. Each project has a
+`run_*.bat` launcher and a `tests/` folder.
 
-## Project structure
+Some configuration files contain absolute local paths, for example to the original SST-2
+files or to the Python interpreter. Adjust them to your machine before running. The ten
+images I1–I10 are not included; `clip_vision_shap/data/images.csv` lists them with their
+SHA-256 hashes.
 
-```text
-TRDP2/
-├── TRDP/                         existing RFEM project; never modified
-└── bert_shap/
-    ├── README.md
-    ├── requirements.txt
-    ├── config.json               editable experiment defaults
-    ├── data/
-    │   └── sentences.csv         original S1–S10 qualitative set
-    ├── src/
-    │   ├── model_wrapper.py      BERT loading and scalar margin wrapper
-    │   ├── run_shap.py           command-line orchestration
-    │   ├── token_aggregation.py  SHAP/BERT alignment and WordPiece merging
-    │   ├── evaluate_faithfulness.py
-    │   └── make_comparison_plots.py
-    ├── tests/
-    │   ├── test_model_parity.py
-    │   └── test_additivity.py
-    └── outputs/
-        ├── values/               CSV values and run configuration
-        ├── plots/                PDF, PNG, and HTML explanations
-        └── evaluation/           faithfulness CSV and run report
-```
-
-## What each Python file does
-
-- `model_wrapper.py` loads BERT and exposes one scalar per input. The wrapper
-  also reports the original logits, probabilities, and predicted label.
-- `token_aggregation.py` aligns SHAP’s features with BERT tokens, joins `##`
-  fragments into readable words, and calculates the additivity residual.
-- `evaluate_faithfulness.py` masks or retains the highest-ranked whole words
-  and computes comprehensiveness and sufficiency.
-- `make_comparison_plots.py` creates per-sentence signed bar charts, colored
-  HTML explanations, the cross-sentence importance plot, and the run report.
-- `run_shap.py` reads configuration and data, calls the other modules, and
-  writes all artifacts. It contains no model mathematics or plotting details.
-
-## Setup
-
-From the `bert_shap` directory:
-
-```powershell
-python -m venv .venv
-.\.venv\Scripts\python.exe -m pip install --upgrade pip
-.\.venv\Scripts\python.exe -m pip install -r requirements.txt
-```
-
-The supplied batch runner can also reuse the sibling TRDP environment. If the
-local ignored `.packages` directory exists, it is added to `PYTHONPATH` without
-changing the older project’s environment.
-
-## Run the experiment
-
-From `TRDP2`:
-
-```powershell
-.\bert_shap\run_qualitative_shap.bat --run-name s1_s10_shap
-```
-
-For an offline run after the checkpoint is cached:
-
-```powershell
-.\bert_shap\run_qualitative_shap.bat --run-name offline_run --local-files-only
-```
-
-Useful smaller runs:
-
-```powershell
-.\bert_shap\run_qualitative_shap.bat --sentence-ids S1 S7 S10 --run-name examples
-.\bert_shap\run_qualitative_shap.bat --max-sentences 1 --max-evals 100 --run-name smoke
-.\bert_shap\run_qualitative_shap.bat --no-faithfulness --run-name shap_only
-```
-
-Edit `config.json` to change persistent defaults. Command-line arguments
-override those defaults. Use `--config <path>` to select another configuration.
-
-## Output layout
-
-One run name is used in three parallel directories:
-
-```text
-outputs/
-├── values/<run-name>/
-│   ├── config.json
-│   ├── sentence_summary.csv
-│   ├── token_shap_values.csv
-│   └── word_shap_values.csv
-├── plots/<run-name>/
-│   ├── mean_absolute_word_shap.pdf
-│   ├── mean_absolute_word_shap.png
-│   └── S1/ ... S10/
-└── evaluation/<run-name>/
-    ├── faithfulness.csv
-    └── run_report.md
-```
-
-## Tests
-
-From the `bert_shap` directory, using the environment containing PyTorch and
-Transformers:
-
-```powershell
-python -m unittest discover -s tests -v
-```
-
-`test_model_parity.py` compares the wrapper against a direct BERT forward pass.
-It skips cleanly when the checkpoint is not already cached.
-`test_additivity.py` tests the SHAP reconstruction formula and WordPiece logic.
-
-## Interpretation cautions
-
-- Results depend on defining a missing word with BERT’s `[MASK]` token.
-- Masked sentences may differ from the model’s fine-tuning distribution.
-- Partition SHAP uses hierarchical coalitions; it is not exhaustive Shapley
-  enumeration over every possible subset.
-- Inspect additivity, stability across evaluation budgets, and faithfulness—not
-  only visually plausible token colors.
-# bert_shap
+The metric projects read the stored results of the original experiments and never modify
+them, so run the underlying experiment first:
+- `bert_clip_partition_shap_500` must run before `bert_clip_shap_faithfulness_metrics`;
+- `clip_vision_shap` must run before `clip_vision_shap_faithfulness_metrics`.

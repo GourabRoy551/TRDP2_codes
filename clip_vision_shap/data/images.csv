@@ -1,0 +1,11 @@
+image_id,image_path,width,height,sha256
+I1,../clip_vision_images/images/I1.jpg,500,333,4d37c2799c3bec5911c3fe14eae25fb6fb0098aa7c85cf582c7bb29ed9dd1784
+I2,../clip_vision_images/images/I2.jpg,500,375,5899fc44bef330570e1e45839bae19f2276fa6b2b847559d7cd644669ee29b56
+I3,../clip_vision_images/images/I3.jpg,500,313,c6165b8f9f8b32be2df5b70b1055581ab3b2cd002e2b0b4aa8afa9ad0d6b1b34
+I4,../clip_vision_images/images/I4.jpg,500,375,17e4336bc2b5fad7f9bf0508fa50f356e899ee140b626e25d88cb5c2d4bcd521
+I5,../clip_vision_images/images/I5.jpg,400,317,a829e63efc76a6e76a1f784876fa30a42880d35e0f2a3645e0f88f66d72cf05b
+I6,../clip_vision_images/images/I6.jpg,500,375,d3d42bcda54f7257695d69e8dc14a8e0cb48a3abe3a23959ac73f57d16d97c03
+I7,../clip_vision_images/images/I7.jpg,500,333,1144c735da585a9cb13f0541ed69efa0b0696ca6d04c765b9e21fe9e00822cf6
+I8,../clip_vision_images/images/I8.jpg,500,339,e7878538fcc0d2a1a2354fc04b7eb54808048a53fe31538b9f40f1f0f9bc07b6
+I9,../clip_vision_images/images/I9.jpg,414,500,33f9527c019a449aa666a0d7a651920873bf30225500993720a3b13b4936569b
+I10,../clip_vision_images/images/I10.jpg,500,333,11d11d1e218714c57998a1eba90a21d3d3615f2c506c4b3dd430fe37c9164e79

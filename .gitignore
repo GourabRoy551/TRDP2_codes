@@ -1,15 +1,24 @@
-.venv/
-.packages/
+# Python and environments
 __pycache__/
 *.pyc
-outputs/*
-!outputs/values/
-!outputs/plots/
-!outputs/evaluation/
-outputs/values/*
-outputs/plots/*
-outputs/evaluation/*
-!outputs/values/.gitkeep
-!outputs/plots/.gitkeep
-!outputs/evaluation/.gitkeep
+.pytest_cache/
+.venv/
+.packages/
+node_modules/
 
+# Generated results (recreated by running the projects)
+outputs/
+output/
+build/
+*.log
+*.jsonl
+
+# Images, documents and binary data
+*.png
+*.jpg
+*.jpeg
+*.pdf
+*.zip
+*.npy
+*.npz
+*.xlsx

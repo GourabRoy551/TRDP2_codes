@@ -1,0 +1,16 @@
+{
+  "model_name": "openai/clip-vit-base-patch32",
+  "input_path": "data/images.csv",
+  "output_root": "outputs",
+  "device": "auto",
+  "max_evals": 500,
+  "batch_size": 32,
+  "blur_kernel": 128,
+  "patch_size": 32,
+  "faithfulness_fractions": [0.1, 0.2, 0.3, 0.5],
+  "faithfulness_random_repeats": 10,
+  "seed": 42,
+  "stability_image_ids": ["I1"],
+  "stability_max_evals": 1000,
+  "local_files_only": true
+}

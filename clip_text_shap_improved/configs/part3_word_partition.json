@@ -1,0 +1,16 @@
+{
+  "model_name": "openai/clip-vit-base-patch32",
+  "stability_path": "data/shap_stability_40.csv",
+  "frozen_prompt_manifest_path": "configs/frozen_prompt_manifest.json",
+  "output_dir": "outputs/part3_word_partition",
+  "device": "auto",
+  "max_length": 77,
+  "max_evals": 500,
+  "batch_size": 32,
+  "top_k": 5,
+  "seed": 42,
+  "presentation_sentence_ids": ["ST00008", "ST00014", "ST00020", "ST00032", "ST00038"],
+  "additivity_tolerance": 0.00001,
+  "conservation_tolerance": 0.0000000001,
+  "local_files_only": true
+}

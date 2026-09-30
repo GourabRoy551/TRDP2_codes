@@ -1,0 +1,10 @@
+# Versions used for the reported run (conda environment "rfem", Python 3.11.15).
+# torch was the CUDA 12.6 build (install from the PyTorch index for GPU support).
+torch==2.14.0
+transformers==5.4.0
+shap==0.51.0
+numpy==2.4.6
+scipy==1.17.1
+pandas==2.3.2
+matplotlib==3.10.9
+pytest==9.0.3

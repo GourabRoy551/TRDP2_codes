@@ -1,0 +1,33 @@
+{
+  "seed": 42,
+  "clip_model_name": "openai/clip-vit-base-patch32",
+  "clip_max_tokens": 77,
+  "sst2_train_path": "D:/Research/TRDP_Study Note/TRDP1/trdp/sst2_quantitative_analysis/data/SST-2/train.tsv",
+  "sst2_dev_path": "D:/Research/TRDP_Study Note/TRDP1/trdp/sst2_quantitative_analysis/data/SST-2/dev.tsv",
+  "pilot_20_path": "../clip_text_shap/data/sentences_20_curated.csv",
+  "output_dir": "data",
+  "internal_validation_counts": {
+    "NEG": 2978,
+    "POS": 3757
+  },
+  "stability_counts": {
+    "NEG": 20,
+    "POS": 20
+  },
+  "final_evaluation_counts": {
+    "NEG": 250,
+    "POS": 250
+  },
+  "previously_inspected_dev_row_ids": [
+    29,
+    59,
+    129,
+    181,
+    212,
+    327,
+    429,
+    504,
+    591,
+    603
+  ]
+}
