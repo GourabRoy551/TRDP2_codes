@@ -16,13 +16,12 @@ recreated by running the projects. Images and large datasets are also left out.
 | `bert_shap/` | Partition SHAP for the BERT SST-2 classifier (POS−NEG margin) on the ten qualitative sentences S1–S10, with word aggregation and faithfulness; `academic_report/` holds the LaTeX of the first report |
 | `bert_shap/dual_class_bert/` | the same BERT explanation for the NEG and POS outputs separately |
 | `clip_text_shap/` | CLIP text encoder as a zero-shot sentiment classifier (prompt prototypes), explained for both classes on S1–S10 |
-| `clip_text_shap_improved/` | dataset preparation, prompt validation, word-level masking and the frozen-head study for CLIP text (parts 1–7) |
 | `clip_vision_shap/` | Partition SHAP for the CLIP vision encoder, 7×7 patch values for images I1–I10 |
 | `bert_clip_partition_shap_500/` | whole-word Partition SHAP for BERT and CLIP text on 500 balanced SST-2 sentences |
 | `bert_clip_shap_faithfulness_metrics/` | comprehensiveness, sufficiency, deletion AOPC and token-level rationale P/R/F1 (SST lexical proxy) for the 500-sentence explanations |
 | `clip_vision_shap_faithfulness_metrics/` | deletion AUC, insertion AUC, AOPC and pointing game for the CLIP vision explanations, including the author-annotated target boxes |
 | `bert_clip_partition_shap_report/` | LaTeX report of the 500-sentence experiment |
-| `report_materials/` | script that collects results and figures for the final report, and the final report's LaTeX source |
+| `final_report/` | script that collects results and figures for the final report; `report2/` holds the final report's LaTeX source |
 
 Every project has its own `README.md` with the method, settings, checks and run commands.
 
@@ -38,6 +37,14 @@ Some configuration files contain absolute local paths, for example to the origin
 files or to the Python interpreter. Adjust them to your machine before running. The ten
 images I1–I10 are not included; `clip_vision_shap/data/images.csv` lists them with their
 SHA-256 hashes.
+
+The 500-sentence evaluation set and the CLIP prompt family were prepared in an earlier
+project, `clip_text_shap_improved`, which is not part of this repository. The frozen
+results are included (`bert_clip_partition_shap_500/data/evaluation_500.csv` and the
+prompts in its `config.json`). However, the experiment verifies them against files of that
+project at run time, so the stages that need them (`prepare`, `score`, `wordbars`) and the
+CLIP prompt check in `bert_clip_shap_faithfulness_metrics` only run where that project is
+available.
 
 The metric projects read the stored results of the original experiments and never modify
 them, so run the underlying experiment first:

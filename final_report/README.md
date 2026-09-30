@@ -16,7 +16,7 @@ re-running an experiment:
 | `03_clip_text_shap_S1_S10/` | 100 (S1–S10 × 5 figures × PNG/PDF) | `clip_text_shap/outputs/plots/clip_text_dual_20_curated/` |
 | `04_clip_vision_shap_I1_I10_patch_overlay_values/` | 20 (I1–I10 × PNG/PDF) | `clip_vision_shap/outputs/plots/clip_vision_i1_i10/` |
 | `05_clip_vision_faithfulness_metrics/` | 15 | `clip_vision_shap_faithfulness_metrics/outputs/` and `annotations/` (+ its README) |
-| `report/` | LaTeX report | `main.tex`, `TRDP2_SHAP_Report.pdf`, `build_report.bat`; uses the figures of 01–05 directly |
+| `report2/` | LaTeX report | `main.tex`, `TRDP2_SHAP_Report.pdf`, `build_report.bat`; uses the figures of 01–05 directly |
 
 ## 01 — BERT vs CLIP-text explanation metrics (500 SST-2 sentences)
 

@@ -1,6 +1,6 @@
 @echo off
 rem Builds the TRDP II report from main.tex (MiKTeX latexmk + pdflatex).
-rem Figures are read directly from the report_materials folders (..\01_... to ..\05_...).
+rem Figures are read directly from the final_report folders (..\01_... to ..\05_...).
 setlocal
 cd /d "%~dp0"
 latexmk -pdf -interaction=nonstopmode -halt-on-error -outdir=build main.tex || exit /b 1
